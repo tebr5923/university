@@ -64,12 +64,16 @@ public class Lecture {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lecture lecture = (Lecture) o;
-        return id == lecture.id && Objects.equals(dateTime, lecture.dateTime) && Objects.equals(classroom, lecture.classroom) && Objects.equals(teacher, lecture.teacher) && Objects.equals(group, lecture.group) && Objects.equals(course, lecture.course);
+        return id == lecture.id && Objects.equals(dateTime, lecture.dateTime) &&
+                Objects.equals(classroom, lecture.classroom) &&
+                Objects.equals(teacher, lecture.teacher) &&
+                Objects.equals(group.getName(), lecture.group.getName()) &&
+                Objects.equals(course, lecture.course);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateTime, classroom, teacher, group, course);
+        return Objects.hash(id, dateTime, classroom, teacher, group.getName(), course);
     }
 
     @Override
@@ -79,7 +83,7 @@ public class Lecture {
                 ", dateTime=" + dateTime +
                 ", classroom=" + classroom +
                 ", teacher=" + teacher +
-                ", group=" + group +
+                ", group=" + group.getName() +
                 ", course=" + course +
                 '}';
     }

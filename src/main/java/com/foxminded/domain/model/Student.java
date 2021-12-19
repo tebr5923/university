@@ -49,12 +49,12 @@ public class Student {
         return id == student.id &&
                 Objects.equals(firstName, student.firstName) &&
                 Objects.equals(lastName, student.lastName) &&
-                Objects.equals(group, student.group);
+                Objects.equals(group.getName(), student.group.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, group);
+        return Objects.hash(id, firstName, lastName, group.getName());
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Student {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", group=" + group +
+                ", group=" + group.getName() +
                 '}';
     }
 }
