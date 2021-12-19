@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Lecture {
+    private int id;
     private LocalDateTime dateTime;
     private Classroom classroom;
     private Teacher teacher;
@@ -12,6 +13,14 @@ public class Lecture {
 
     public Lecture() {
         //default constructor
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDateTime getDateTime() {
