@@ -5,6 +5,7 @@ import com.foxminded.domain.model.Lecture;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MonthTimetable implements Timetable {
     private final Month month;
@@ -25,8 +26,9 @@ public class MonthTimetable implements Timetable {
 
     @Override
     public List<Lecture> getTimetable() {
-        List<Lecture> lectures = new ArrayList<>();
-        dayTimetables.stream().map(DayTimetable::getTimetable).forEach(lectures::addAll);
-        return lectures;
+        return dayTimetables.stream()
+                .map(DayTimetable::getTimetable)
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
     }
 }
