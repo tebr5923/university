@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MonthTimetable implements Timetable {
-    private Month month;
-    private List<DayTimetable> dayTimetables;
+    private final Month month;
+    private final List<DayTimetable> dayTimetables;
 
-    //init in constructor or in setter?
     public MonthTimetable(Month month, List<DayTimetable> dayTimetables) {
         this.month = month;
         this.dayTimetables = dayTimetables;
