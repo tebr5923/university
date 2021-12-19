@@ -3,7 +3,6 @@ package com.foxminded.domain.timetable;
 import com.foxminded.domain.model.Lecture;
 
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,9 +24,9 @@ public class MonthTimetable implements Timetable {
     }
 
     @Override
-    public List<Lecture> getTimetable() {
+    public List<Lecture> getLectures() {
         return dayTimetables.stream()
-                .map(DayTimetable::getTimetable)
+                .map(DayTimetable::getLectures)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
     }

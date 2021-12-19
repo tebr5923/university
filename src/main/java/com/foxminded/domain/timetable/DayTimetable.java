@@ -18,7 +18,7 @@ public class DayTimetable implements Timetable {
     }
 
     @Override
-    public List<Lecture> getTimetable() {
+    public List<Lecture> getLectures() {
         return lectures;
     }
 }
