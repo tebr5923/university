@@ -8,10 +8,6 @@ public class Student {
     private String lastName;
     private Group group;
 
-    public Student() {
-        //default constructor
-    }
-
     public int getId() {
         return id;
     }

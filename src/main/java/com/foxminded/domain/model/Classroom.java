@@ -6,10 +6,6 @@ public class Classroom {
     private int id;
     private int number;
 
-    public Classroom() {
-        //default constructor
-    }
-
     public int getId() {
         return id;
     }

@@ -12,10 +12,6 @@ public class Group {
     private List<Course> courses;
     private List<Student> students;
 
-    public Group() {
-        //default constructor
-    }
-
     public int getId() {
         return id;
     }

@@ -11,10 +11,6 @@ public class Lecture {
     private Group group;
     private Course course;
 
-    public Lecture() {
-        //default constructor
-    }
-
     public int getId() {
         return id;
     }

@@ -6,10 +6,6 @@ public class Course {
     private int id;
     private String name;
 
-    public Course() {
-        //default constructor
-    }
-
     public int getId() {
         return id;
     }

@@ -7,10 +7,6 @@ public class Teacher {
     private String firstName;
     private String lastName;
 
-    public Teacher() {
-        //default constructor
-    }
-
     public int getId() {
         return id;
     }
