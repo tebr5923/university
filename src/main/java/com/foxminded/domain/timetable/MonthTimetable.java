@@ -4,6 +4,7 @@ import com.foxminded.domain.model.Lecture;
 
 import java.time.Month;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MonthTimetable implements Timetable {
@@ -29,5 +30,18 @@ public class MonthTimetable implements Timetable {
                 .map(DayTimetable::getLectures)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MonthTimetable that = (MonthTimetable) o;
+        return month == that.month && Objects.equals(dayTimetables, that.dayTimetables);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(month, dayTimetables);
     }
 }
