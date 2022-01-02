@@ -1,6 +1,6 @@
-package com.foxminded.domain.timetable;
+package com.foxminded.university.domain.timetable;
 
-import com.foxminded.domain.model.Lecture;
+import com.foxminded.university.domain.model.Lecture;
 
 import java.time.Month;
 import java.util.List;

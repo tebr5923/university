@@ -1,6 +1,6 @@
-package com.foxminded.domain.model;
+package com.foxminded.university.domain.model;
 
-import com.foxminded.domain.timetable.MonthTimetable;
+import com.foxminded.university.domain.timetable.MonthTimetable;
 
 import java.util.List;
 import java.util.Objects;
