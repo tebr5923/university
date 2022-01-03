@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +16,8 @@ public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public JdbcTemplateTeacherDaoImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public JdbcTemplateTeacherDaoImpl(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
