@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS students;
 DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS classrooms;
+DROP TABLE IF EXISTS groups_courses;
 DROP SEQUENCE IF EXISTS teachers_id_seq;
 DROP SEQUENCE IF EXISTS students_id_seq;
 DROP SEQUENCE IF EXISTS groups_id_seq;
@@ -112,3 +113,16 @@ ALTER TABLE lectures
     ALTER COLUMN id
         SET DEFAULT NEXTVAL('lectures_id_seq');
 
+
+CREATE TABLE groups_courses
+(
+    group_id int NOT NULL,
+    course_id  int NOT NULL,
+    PRIMARY KEY (group_id, course_id),
+    FOREIGN KEY (group_id)
+        REFERENCES groups (id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (course_id)
+        REFERENCES courses (id)
+        ON DELETE CASCADE
+);

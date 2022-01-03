@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS students;
 DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS classrooms;
+DROP TABLE IF EXISTS groups_courses;
 DROP SEQUENCE IF EXISTS teachers_id_seq;
 DROP SEQUENCE IF EXISTS students_id_seq;
 DROP SEQUENCE IF EXISTS groups_id_seq;
