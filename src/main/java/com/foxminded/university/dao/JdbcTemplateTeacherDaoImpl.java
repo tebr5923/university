@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +51,15 @@ public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
     }
 
     @Override
-    public void saveAll(List<Teacher> modelList) {
+    public int[] saveAll(List<Teacher> modelList) {
+        String sql = "INSERT INTO teachers (id, first_name, last_name) values(DEFAULT,?,?);";
 
+        List<Object[]> batch = new ArrayList<Object[]>();
+        for (Teacher teacher : modelList) {
+            Object[] values = new Object[]{
+                    teacher.getFirstName(), teacher.getLastName()};
+            batch.add(values);
+        }
+        return jdbcTemplate.batchUpdate(sql, batch);
     }
 }
