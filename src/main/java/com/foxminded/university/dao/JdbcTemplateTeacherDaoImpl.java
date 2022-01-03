@@ -4,27 +4,34 @@ import com.foxminded.university.domain.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
 public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
     private final JdbcTemplate jdbcTemplate;
+    private final SimpleJdbcInsert insertTeacher;
 
     @Autowired
     public JdbcTemplateTeacherDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+        this.insertTeacher = new SimpleJdbcInsert(dataSource)
+                .withTableName("teachers")
+                .usingColumns("first_name", "last_name")
+                .usingGeneratedKeyColumns("id");
     }
 
     @Override
     public Optional<Teacher> getById(Integer id) {
         String sql = "SELECT * FROM teachers where id=?;";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Teacher.class), id).stream().findAny();
-
     }
 
     @Override
@@ -35,8 +42,11 @@ public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
 
     @Override
     public void save(Teacher model) {
-        String sql = "INSERT INTO teachers (id, first_name, last_name) values(DEFAULT,?,?);";
-        jdbcTemplate.update(sql, model.getFirstName(), model.getLastName());
+        Map<String, Object> parameters = new HashMap<>(2);
+        parameters.put("first_name", model.getFirstName());
+        parameters.put("last_name", model.getLastName());
+        Number newId = insertTeacher.executeAndReturnKey(parameters);
+        model.setId(newId.intValue());
     }
 
     @Override
@@ -55,7 +65,7 @@ public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
     public int[] saveAll(List<Teacher> modelList) {
         String sql = "INSERT INTO teachers (id, first_name, last_name) values(DEFAULT,?,?);";
 
-        List<Object[]> batch = new ArrayList<Object[]>();
+        List<Object[]> batch = new ArrayList<>();
         for (Teacher teacher : modelList) {
             Object[] values = new Object[]{
                     teacher.getFirstName(), teacher.getLastName()};
