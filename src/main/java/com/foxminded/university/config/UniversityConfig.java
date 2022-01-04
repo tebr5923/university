@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
@@ -26,7 +28,7 @@ public class UniversityConfig {
     private String password;
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         dataSource.setDriverClassName(driver);
@@ -35,6 +37,19 @@ public class UniversityConfig {
         dataSource.setPassword(password);
 
         return dataSource;
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(dataSource());
+    }
+
+    @Bean("insertTeacher")
+    public SimpleJdbcInsert insertTeacher() {
+        return new SimpleJdbcInsert(dataSource())
+                .withTableName("teachers")
+                .usingColumns("first_name", "last_name")
+                .usingGeneratedKeyColumns("id");
     }
 
 }

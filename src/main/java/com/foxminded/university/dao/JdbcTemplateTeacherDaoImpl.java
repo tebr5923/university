@@ -2,12 +2,12 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.domain.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +20,9 @@ public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
     private final SimpleJdbcInsert insertTeacher;
 
     @Autowired
-    public JdbcTemplateTeacherDaoImpl(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.insertTeacher = new SimpleJdbcInsert(dataSource)
-                .withTableName("teachers")
-                .usingColumns("first_name", "last_name")
-                .usingGeneratedKeyColumns("id");
+    public JdbcTemplateTeacherDaoImpl(JdbcTemplate jdbcTemplate, @Qualifier("insertTeacher") SimpleJdbcInsert insertTeacher) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.insertTeacher = insertTeacher;
     }
 
     @Override
