@@ -3,8 +3,8 @@ package com.foxminded.university.dao;
 import com.foxminded.university.domain.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
@@ -18,23 +18,29 @@ import java.util.Optional;
 public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert insertTeacher;
+    private final RowMapper<Teacher> teacherRowMapper;
 
     @Autowired
-    public JdbcTemplateTeacherDaoImpl(JdbcTemplate jdbcTemplate, @Qualifier("insertTeacher") SimpleJdbcInsert insertTeacher) {
+    public JdbcTemplateTeacherDaoImpl(
+            JdbcTemplate jdbcTemplate,
+            @Qualifier("insertTeacher") SimpleJdbcInsert insertTeacher,
+            RowMapper<Teacher> teacherRowMapper
+    ) {
         this.jdbcTemplate = jdbcTemplate;
         this.insertTeacher = insertTeacher;
+        this.teacherRowMapper = teacherRowMapper;
     }
 
     @Override
     public Optional<Teacher> getById(Integer id) {
         String sql = "SELECT * FROM teachers where id=?;";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Teacher.class), id).stream().findAny();
+        return jdbcTemplate.query(sql, teacherRowMapper, id).stream().findAny();
     }
 
     @Override
     public List<Teacher> getAll() {
         String sql = "SELECT * FROM teachers;";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Teacher.class));
+        return jdbcTemplate.query(sql, teacherRowMapper);
     }
 
     @Override

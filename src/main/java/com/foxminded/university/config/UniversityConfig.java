@@ -1,10 +1,12 @@
 package com.foxminded.university.config;
 
+import com.foxminded.university.domain.model.Teacher;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -44,12 +46,17 @@ public class UniversityConfig {
         return new JdbcTemplate(dataSource());
     }
 
-    @Bean("insertTeacher")
+    @Bean
     public SimpleJdbcInsert insertTeacher() {
         return new SimpleJdbcInsert(dataSource())
                 .withTableName("teachers")
                 .usingColumns("first_name", "last_name")
                 .usingGeneratedKeyColumns("id");
+    }
+
+    @Bean
+    public BeanPropertyRowMapper<Teacher> teacherRowMapper(){
+        return new BeanPropertyRowMapper<>(Teacher.class);
     }
 
 }
