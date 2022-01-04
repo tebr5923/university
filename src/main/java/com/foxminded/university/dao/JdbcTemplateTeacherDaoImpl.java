@@ -3,6 +3,7 @@ package com.foxminded.university.dao;
 import com.foxminded.university.domain.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@SuppressWarnings("squid:S106") //don't use logger in this task
 @Component
 public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
     private final JdbcTemplate jdbcTemplate;
@@ -34,7 +36,13 @@ public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
     @Override
     public Optional<Teacher> getById(Integer id) {
         String sql = "SELECT * FROM teachers where id=?;";
-        return jdbcTemplate.query(sql, teacherRowMapper, id).stream().findAny();
+        Teacher teacher = null;
+        try {
+            teacher = jdbcTemplate.queryForObject(sql, teacherRowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            System.err.println("FAIL getById " + id);
+        }
+        return Optional.ofNullable(teacher);
     }
 
     @Override
