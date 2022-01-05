@@ -17,7 +17,7 @@
         <org.mockito.version>3.3.3</org.mockito.version>
         <org.postgresql.version>42.2.18</org.postgresql.version>
         <com.h2database.version>1.4.200</com.h2database.version>
-        <org.springframework.version>5.3.14</org.springframework.version>
+        <org.springframework.version>5.2.5.RELEASE</org.springframework.version>
 
     </properties>
 
@@ -95,6 +95,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

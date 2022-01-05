@@ -36,6 +36,17 @@ public class DBFactory {
         executeScript(dropTablesFileName, "DROP");
     }
 
+    public void executeScriptFromResources(String fileName) {
+        Resource resource = new ClassPathResource(fileName);
+        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator(resource);
+        try {
+            databasePopulator.populate(dataSource.getConnection());
+        } catch (SQLException e) {
+            System.err.printf("wrong script form file %s%n", fileName);
+            throw new IllegalStateException(String.format("wrong script form file %s%n", fileName),e);
+        }
+    }
+
     private void executeScript(String fileName, String message) {
         Resource resource = new ClassPathResource(fileName);
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator(resource);
@@ -45,7 +56,6 @@ public class DBFactory {
             System.err.printf("table NOT %s%n", message);
             throw new IllegalStateException(String.format("cant %s table", message), e);
         }
-
     }
 
 }
