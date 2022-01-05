@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.Optional;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringJUnitConfig(UniversityConfigTest.class)
+@TestPropertySource("classpath:h2.properties")
 class JdbcTemplateTeacherDaoImplTest {
     public static final String TEACHER_SCRIPT = "teacher.sql";
 
@@ -47,7 +49,7 @@ class JdbcTemplateTeacherDaoImplTest {
     }
 
     @Test
-    void save_shouldSaveTeacher_whenSavingTeacherNotExist(){
+    void save_shouldSaveTeacher_whenSavingTeacherNotExist() {
         Teacher expected = new Teacher();
         expected.setFirstName("NewFirstName");
         expected.setLastName("NewFirstName");

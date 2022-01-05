@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -15,11 +14,8 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.foxminded.university")
-@PropertySource("classpath:h2.properties")
 public class UniversityConfigTest {
-    // I do not know why, but he takes properties from src resources
-
-    /*@Value("${db.driver}")
+    @Value("${db.driver}")
     private String driver;
 
     @Value("${db.url}")
@@ -29,15 +25,10 @@ public class UniversityConfigTest {
     private String user;
 
     @Value("${db.password}")
-    private String password;*/
+    private String password;
 
     @Bean
     public DataSource dataSource() {
-        String driver ="org.h2.Driver";
-        String url = "jdbc:h2:~/test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;";
-        String user = "sa";
-        String password = "";
-
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         dataSource.setDriverClassName(driver);
@@ -62,7 +53,7 @@ public class UniversityConfigTest {
     }
 
     @Bean
-    public BeanPropertyRowMapper<Teacher> teacherRowMapper(){
+    public BeanPropertyRowMapper<Teacher> teacherRowMapper() {
         return new BeanPropertyRowMapper<>(Teacher.class);
     }
 
