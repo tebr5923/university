@@ -11,8 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringJUnitConfig(UniversityConfigTest.class)
 @TestPropertySource("classpath:h2.properties")
@@ -46,6 +45,16 @@ class JdbcTemplateTeacherDaoImplTest {
 
         assertTrue(actual.isPresent());
         assertEquals(expected, actual.get());
+    }
+
+    @Test
+    void getById_shouldReturnOptionalEmpty_whenGetTeacherNotExist() {
+        Optional<Teacher> expected = Optional.empty();
+
+        Optional<Teacher> actual = teacherDao.getById(111);
+
+        assertFalse(actual.isPresent());
+        assertEquals(expected, actual);
     }
 
     @Test
