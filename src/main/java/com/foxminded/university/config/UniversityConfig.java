@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
@@ -47,15 +46,7 @@ public class UniversityConfig {
     }
 
     @Bean
-    public SimpleJdbcInsert insertTeacher() {
-        return new SimpleJdbcInsert(dataSource())
-                .withTableName("teachers")
-                .usingColumns("first_name", "last_name")
-                .usingGeneratedKeyColumns("id");
-    }
-
-    @Bean
-    public BeanPropertyRowMapper<Teacher> teacherRowMapper(){
+    public BeanPropertyRowMapper<Teacher> teacherRowMapper() {
         return new BeanPropertyRowMapper<>(Teacher.class);
     }
 
