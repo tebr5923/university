@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("squid:S106") //don't use logger in this task
+@Component
 public class JdbcTemplateGroupDaoImpl implements GroupDao {
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert insertGroup;
