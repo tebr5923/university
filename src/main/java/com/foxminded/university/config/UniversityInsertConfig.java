@@ -17,4 +17,14 @@ public class UniversityInsertConfig extends UniversityConfig {
                 .usingGeneratedKeyColumns("id");
     }
 
+    @Bean
+    public SimpleJdbcInsert insertGroup() {
+        return new SimpleJdbcInsert(dataSource())
+                .withTableName("groups")
+                .usingColumns("name")
+                .usingGeneratedKeyColumns("id");
+    }
+
+
+
 }
