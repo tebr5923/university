@@ -1,6 +1,6 @@
 package com.foxminded.university.dao;
 
-import com.foxminded.university.config.UniversityConfigTest;
+import com.foxminded.university.config.UniversityTestConfig;
 import com.foxminded.university.domain.model.Teacher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringJUnitConfig(UniversityConfigTest.class)
+@SpringJUnitConfig(UniversityTestConfig.class)
 @TestPropertySource("classpath:h2.properties")
 class JdbcTemplateTeacherDaoImplTest {
     public static final String TEACHER_SCRIPT = "teacher.sql";

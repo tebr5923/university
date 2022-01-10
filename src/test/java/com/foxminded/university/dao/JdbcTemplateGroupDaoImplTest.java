@@ -1,6 +1,6 @@
 package com.foxminded.university.dao;
 
-import com.foxminded.university.config.UniversityConfigTest;
+import com.foxminded.university.config.UniversityTestConfig;
 import com.foxminded.university.domain.model.Group;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringJUnitConfig(UniversityConfigTest.class)
+@SpringJUnitConfig(UniversityTestConfig.class)
 @TestPropertySource("classpath:h2.properties")
 class JdbcTemplateGroupDaoImplTest {
     public static final String GROUP_SCRIPT = "group.sql";

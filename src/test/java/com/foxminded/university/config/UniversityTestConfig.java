@@ -5,6 +5,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan("com.foxminded.university")
-public class UniversityConfigTest {
+public class UniversityTestConfig {
 
 }
