@@ -2,7 +2,6 @@ package com.foxminded.university.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -13,7 +12,6 @@ import java.sql.SQLException;
 
 @SuppressWarnings("squid:S106") //don't use logger in this task
 @Component("dbFactory")
-@PropertySource("classpath:db.properties")
 public class DBFactory {
     private final DataSource dataSource;
 
