@@ -35,13 +35,12 @@ public class JdbcTemplateGroupDaoImpl implements GroupDao {
     @Override
     public Optional<Group> getById(Integer id) {
         String sql = "SELECT * FROM groups where id=?;";
-        Group group = null;
         try {
-            group = jdbcTemplate.queryForObject(sql, groupRowMapper, id);
+            return Optional.of(jdbcTemplate.queryForObject(sql, groupRowMapper, id));
         } catch (EmptyResultDataAccessException e) {
             System.err.println("FAIL getById " + id);
         }
-        return Optional.ofNullable(group);
+        return Optional.empty();
     }
 
     @Override

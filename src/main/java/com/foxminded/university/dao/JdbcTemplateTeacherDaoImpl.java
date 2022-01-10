@@ -36,13 +36,12 @@ public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
     @Override
     public Optional<Teacher> getById(Integer id) {
         String sql = "SELECT * FROM teachers where id=?;";
-        Teacher teacher = null;
         try {
-            teacher = jdbcTemplate.queryForObject(sql, teacherRowMapper, id);
+            return Optional.of(jdbcTemplate.queryForObject(sql, teacherRowMapper, id));
         } catch (EmptyResultDataAccessException e) {
             System.err.println("FAIL getById " + id);
         }
-        return Optional.ofNullable(teacher);
+        return Optional.empty();
     }
 
     @Override
