@@ -53,12 +53,9 @@ class JdbcTemplateTeacherDaoImplTest {
 
     @Test
     void getById_shouldReturnOptionalEmpty_whenGettingTeacherNotExist() {
-        Optional<Teacher> expected = Optional.empty();
-
         Optional<Teacher> actual = teacherDao.getById(111);
 
         assertFalse(actual.isPresent());
-        assertEquals(expected, actual);
     }
 
     @Test

@@ -13,7 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringJUnitConfig(UniversityTestConfig.class)
 @TestPropertySource("classpath:h2.properties")
@@ -51,12 +53,9 @@ class JdbcTemplateGroupDaoImplTest {
 
     @Test
     void getById_shouldReturnOptionalEmpty_whenGettingGroupNotExist() {
-        Optional<Group> expected = Optional.empty();
-
         Optional<Group> actual = groupDao.getById(111);
 
         assertFalse(actual.isPresent());
-        assertEquals(expected, actual);
     }
 
     @Test
