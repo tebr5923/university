@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import javax.sql.DataSource;
 
 @Configuration
-public class UniversityInsertConfig extends UniversityConfig {
+public class UniversityInsertConfig {
 
     @Bean
     public SimpleJdbcInsert insertTeacher(DataSource dataSource) {

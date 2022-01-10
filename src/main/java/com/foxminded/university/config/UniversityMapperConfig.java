@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 @Configuration
-public class UniversityMapperConfig extends UniversityConfig{
+public class UniversityMapperConfig {
     @Bean
     public BeanPropertyRowMapper<Teacher> teacherRowMapper() {
         return new BeanPropertyRowMapper<>(Teacher.class);
