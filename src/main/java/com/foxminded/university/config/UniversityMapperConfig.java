@@ -1,5 +1,6 @@
 package com.foxminded.university.config;
 
+import com.foxminded.university.domain.model.Classroom;
 import com.foxminded.university.domain.model.Course;
 import com.foxminded.university.domain.model.Group;
 import com.foxminded.university.domain.model.Teacher;
@@ -22,6 +23,11 @@ public class UniversityMapperConfig {
     @Bean
     public BeanPropertyRowMapper<Course> courseRowMapper() {
         return new BeanPropertyRowMapper<>(Course.class);
+    }
+
+    @Bean
+    public BeanPropertyRowMapper<Classroom> classroomRowMapper() {
+        return new BeanPropertyRowMapper<>(Classroom.class);
     }
 
 }

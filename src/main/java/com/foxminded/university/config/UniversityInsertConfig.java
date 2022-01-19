@@ -33,5 +33,12 @@ public class UniversityInsertConfig {
                 .usingGeneratedKeyColumns("id");
     }
 
+    @Bean
+    public SimpleJdbcInsert insertClassroom(DataSource dataSource) {
+        return new SimpleJdbcInsert(dataSource)
+                .withTableName("classrooms")
+                .usingColumns("number")
+                .usingGeneratedKeyColumns("id");
+    }
 
 }
