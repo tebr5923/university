@@ -25,6 +25,13 @@ public class UniversityInsertConfig {
                 .usingGeneratedKeyColumns("id");
     }
 
+    @Bean
+    public SimpleJdbcInsert insertCourse(DataSource dataSource) {
+        return new SimpleJdbcInsert(dataSource)
+                .withTableName("courses")
+                .usingColumns("name")
+                .usingGeneratedKeyColumns("id");
+    }
 
 
 }

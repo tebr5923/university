@@ -1,5 +1,6 @@
 package com.foxminded.university.config;
 
+import com.foxminded.university.domain.model.Course;
 import com.foxminded.university.domain.model.Group;
 import com.foxminded.university.domain.model.Teacher;
 import org.springframework.context.annotation.Bean;
@@ -17,4 +18,10 @@ public class UniversityMapperConfig {
     public BeanPropertyRowMapper<Group> groupRowMapper() {
         return new BeanPropertyRowMapper<>(Group.class);
     }
+
+    @Bean
+    public BeanPropertyRowMapper<Course> courseRowMapper() {
+        return new BeanPropertyRowMapper<>(Course.class);
+    }
+
 }
