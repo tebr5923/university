@@ -165,4 +165,62 @@ class JdbcTemplateStudentDaoImplTest {
         assertFalse(actual.isPresent());
     }
 
+    @Test
+    void saveAll_shouldSaveAllTeachers() {
+        Group group1 = new Group();
+        group1.setId(1);
+        group1.setName("GR-11");
+        Group group2 = new Group();
+        group2.setId(2);
+        group2.setName("GR-22");
+        Group group3 = new Group();
+        group3.setId(3);
+        group3.setName("GR-33");
+        Group group4 = new Group();
+        group4.setId(4);
+        group4.setName("GR-44");
+        Student student1 = new Student();
+        student1.setId(1);
+        student1.setFirstName("Ivan");
+        student1.setLastName("Ivanov");
+        student1.setGroup(group1);
+        Student student2 = new Student();
+        student2.setId(2);
+        student2.setFirstName("Petr");
+        student2.setLastName("Petrov");
+        student2.setGroup(group2);
+        Student student3 = new Student();
+        student3.setId(3);
+        student3.setFirstName("Pavel");
+        student3.setLastName("Pavlov");
+        student3.setGroup(group3);
+        Student student4 = new Student();
+        student4.setId(4);
+        student4.setFirstName("Denis");
+        student4.setLastName("Denisov");
+        student4.setGroup(group4);
+        Student newStudent1 = new Student();
+        newStudent1.setId(5);
+        newStudent1.setFirstName("NewFirstName1");
+        newStudent1.setLastName("NewLastName1");
+        newStudent1.setGroup(group1);
+        Student newStudent2 = new Student();
+        newStudent2.setId(6);
+        newStudent2.setFirstName("NewFirstName2");
+        newStudent2.setLastName("NewLastName2");
+        newStudent2.setGroup(group2);
+        Student newStudent3 = new Student();
+        newStudent3.setId(7);
+        newStudent3.setFirstName("NewFirstName3");
+        newStudent3.setLastName("NewLastName3");
+        newStudent3.setGroup(group3);
+        List<Student> savingList = Arrays.asList(newStudent1, newStudent2, newStudent3);
+        List<Student> expected = Arrays.asList(student1, student2, student3, student4, newStudent1, newStudent2, newStudent3);
+
+        studentDao.saveAll(savingList);
+        List<Student> actual = studentDao.getAll();
+
+        assertEquals(expected, actual);
+    }
+
 }

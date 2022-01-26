@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class JdbcTemplateStudentDaoImpl implements StudentDao {
 
     @Override
     public List<Student> getAll() {
-        String sql = "SELECT s.id, s.group_id, s.first_name, s.last_name, g.name as group_name FROM students s left join groups g on g.id = s.group_id;";
+        String sql = "SELECT s.id, s.group_id, s.first_name, s.last_name, g.name as group_name FROM students s join groups g on g.id = s.group_id;";
 
         return jdbcTemplate.query(sql, studentRowMapper);
     }
@@ -73,6 +74,13 @@ public class JdbcTemplateStudentDaoImpl implements StudentDao {
 
     @Override
     public int[] saveAll(List<Student> modelList) {
-        return new int[0];
+        String sql = "INSERT INTO students (id, group_id, first_name, last_name) values(DEFAULT,?,?,?);";
+        List<Object[]> batch = new ArrayList<>();
+        for (Student student : modelList) {
+            Object[] values = new Object[]{
+                    student.getGroup().getId(), student.getFirstName(), student.getLastName()};
+            batch.add(values);
+        }
+        return jdbcTemplate.batchUpdate(sql, batch);
     }
 }
