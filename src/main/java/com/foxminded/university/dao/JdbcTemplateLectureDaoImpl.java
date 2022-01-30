@@ -1,7 +1,6 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.domain.model.Lecture;
-import com.foxminded.university.domain.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -32,13 +31,16 @@ public class JdbcTemplateLectureDaoImpl implements LectureDao {
 
     @Override
     public Optional<Lecture> getById(Integer id) {
-        //   String sql = "SELECT s.id, s.group_id, s.first_name, s.last_name, g.name as group_name FROM students s left join groups g on g.id = s.group_id where s.id=?;";
-        String sql = "SELECT l.id, l.date_time, l.classroom_id, l.teacher_id, " +
-                "c.number as classroom_number," +
-                "t.first_name as teacher_first_name, t.last_name as teacher_last_name  " +
+        String sql = "SELECT l.id, l.date_time, l.classroom_id, l.teacher_id, l.group_id, l.course_id, " +
+                "c.number as classroom_number, " +
+                "t.first_name as teacher_first_name, t.last_name as teacher_last_name, " +
+                "g.name as group_name, " +
+                "crs.name as course_name " +
                 "FROM lectures l " +
                 "join classrooms c on c.id = l.classroom_id " +
                 "join teachers t on t.id = l.teacher_id " +
+                "join groups g on g.id = l.group_id " +
+                "join courses crs on crs.id = l.course_id " +
                 "where l.id=?;";
         try {
             return Optional.of(jdbcTemplate.queryForObject(sql, lectureRowMapper, id));
@@ -50,7 +52,17 @@ public class JdbcTemplateLectureDaoImpl implements LectureDao {
 
     @Override
     public List<Lecture> getAll() {
-        return null;
+        String sql = "SELECT l.id, l.date_time, l.classroom_id, l.teacher_id, l.group_id, l.course_id, " +
+                "c.number as classroom_number, " +
+                "t.first_name as teacher_first_name, t.last_name as teacher_last_name, " +
+                "g.name as group_name, " +
+                "crs.name as course_name " +
+                "FROM lectures l " +
+                "join classrooms c on c.id = l.classroom_id " +
+                "join teachers t on t.id = l.teacher_id " +
+                "join groups g on g.id = l.group_id " +
+                "join courses crs on crs.id = l.course_id ";
+        return jdbcTemplate.query(sql, lectureRowMapper);
     }
 
     @Override

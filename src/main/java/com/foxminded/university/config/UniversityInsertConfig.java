@@ -49,6 +49,7 @@ public class UniversityInsertConfig {
                 .usingGeneratedKeyColumns("id");
     }
 
+    // not for use, will be refactored later
     @Bean SimpleJdbcInsert insertLecture(DataSource dataSource){
         return new SimpleJdbcInsert(dataSource)
                 .withTableName("lectures")
