@@ -23,7 +23,7 @@ public class JdbcTemplateLectureDaoImpl implements LectureDao {
     @Autowired
     public JdbcTemplateLectureDaoImpl(
             JdbcTemplate jdbcTemplate,
-            @Qualifier("insertLecture")SimpleJdbcInsert insertLecture,
+            @Qualifier("insertLecture") SimpleJdbcInsert insertLecture,
             RowMapper<Lecture> lectureRowMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.insertLecture = insertLecture;
@@ -32,8 +32,14 @@ public class JdbcTemplateLectureDaoImpl implements LectureDao {
 
     @Override
     public Optional<Lecture> getById(Integer id) {
-     //   String sql = "SELECT s.id, s.group_id, s.first_name, s.last_name, g.name as group_name FROM students s left join groups g on g.id = s.group_id where s.id=?;";
-        String sql = "SELECT l.id, l.date_time  FROM lectures l where id=?;";
+        //   String sql = "SELECT s.id, s.group_id, s.first_name, s.last_name, g.name as group_name FROM students s left join groups g on g.id = s.group_id where s.id=?;";
+        String sql = "SELECT l.id, l.date_time, l.classroom_id, l.teacher_id, " +
+                "c.number as classroom_number," +
+                "t.first_name as teacher_first_name, t.last_name as teacher_last_name  " +
+                "FROM lectures l " +
+                "join classrooms c on c.id = l.classroom_id " +
+                "join teachers t on t.id = l.teacher_id " +
+                "where l.id=?;";
         try {
             return Optional.of(jdbcTemplate.queryForObject(sql, lectureRowMapper, id));
         } catch (EmptyResultDataAccessException e) {

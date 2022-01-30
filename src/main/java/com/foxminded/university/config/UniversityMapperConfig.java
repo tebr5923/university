@@ -52,6 +52,15 @@ public class UniversityMapperConfig {
             Lecture lecture = new Lecture();
             lecture.setId(resultSet.getInt("id"));
             lecture.setDateTime(resultSet.getObject("date_time", LocalDateTime.class));
+            Classroom classroom = new Classroom();
+            classroom.setId(resultSet.getInt("classroom_id"));
+            classroom.setNumber(resultSet.getInt("classroom_number"));
+            lecture.setClassroom(classroom);
+            Teacher teacher = new Teacher();
+            teacher.setId(resultSet.getInt("teacher_id"));
+            teacher.setFirstName(resultSet.getString("teacher_first_name"));
+            teacher.setLastName(resultSet.getString("teacher_last_name"));
+            lecture.setTeacher(teacher);
 
             return lecture;
         };

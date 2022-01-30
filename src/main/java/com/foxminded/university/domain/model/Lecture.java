@@ -65,26 +65,37 @@ public class Lecture {
         if (o == null || getClass() != o.getClass()) return false;
         Lecture lecture = (Lecture) o;
         return id == lecture.id && Objects.equals(dateTime, lecture.dateTime) &&
+                Objects.equals(classroom, lecture.classroom)&&
+                Objects.equals(teacher, lecture.teacher);
+
+       /* return id == lecture.id && Objects.equals(dateTime, lecture.dateTime) &&
                 Objects.equals(classroom, lecture.classroom) &&
                 Objects.equals(teacher, lecture.teacher) &&
                 Objects.equals(group.getName(), lecture.group.getName()) &&
-                Objects.equals(course, lecture.course);
+                Objects.equals(course, lecture.course);*/
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateTime, classroom, teacher, group.getName(), course);
+        //return Objects.hash(id, dateTime, classroom, teacher, group.getName(), course);
+        return Objects.hash(id, dateTime, classroom, teacher);
     }
 
     @Override
     public String toString() {
-        return "Lecture{" +
+       /* return "Lecture{" +
                 "id=" + id +
                 ", dateTime=" + dateTime +
                 ", classroom=" + classroom +
                 ", teacher=" + teacher +
                 ", group=" + group.getName() +
                 ", course=" + course +
+                '}';*/
+        return "Lecture{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", classroom=" + classroom +
+                ", teacher=" + teacher +
                 '}';
     }
 }
