@@ -1,14 +1,12 @@
 package com.foxminded.university.config;
 
-import com.foxminded.university.domain.model.Classroom;
-import com.foxminded.university.domain.model.Course;
-import com.foxminded.university.domain.model.Group;
-import com.foxminded.university.domain.model.Student;
-import com.foxminded.university.domain.model.Teacher;
+import com.foxminded.university.domain.model.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+
+import java.time.LocalDateTime;
 
 @Configuration
 public class UniversityMapperConfig {
@@ -45,6 +43,17 @@ public class UniversityMapperConfig {
             group.setName(resultSet.getString("group_name"));
             student.setGroup(group);
             return student;
+        };
+    }
+
+    @Bean
+    public RowMapper<Lecture> lectureRowMapper(){
+        return (resultSet, i) -> {
+            Lecture lecture = new Lecture();
+            lecture.setId(resultSet.getInt("id"));
+            lecture.setDateTime(resultSet.getObject("date_time", LocalDateTime.class));
+
+            return lecture;
         };
     }
 
