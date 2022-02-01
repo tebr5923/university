@@ -8,7 +8,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("squid:S106") //don't use logger in this task
@@ -66,7 +68,14 @@ public class JdbcTemplateLectureDaoImpl implements LectureDao {
 
     @Override
     public void save(Lecture model) {
-
+        Map<String, Object> parameters = new HashMap<>(5);
+        parameters.put("date_time", model.getDateTime());
+        parameters.put("classroom_id", model.getClassroom().getId());
+        parameters.put("teacher_id", model.getTeacher().getId());
+        parameters.put("group_id", model.getGroup().getId());
+        parameters.put("course_id", model.getCourse().getId());
+        Number newId = insertLecture.executeAndReturnKey(parameters);
+        model.setId(newId.intValue());
     }
 
     @Override

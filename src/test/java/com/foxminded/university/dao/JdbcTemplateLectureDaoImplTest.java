@@ -1,11 +1,7 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.config.UniversityTestConfig;
-import com.foxminded.university.domain.model.Classroom;
-import com.foxminded.university.domain.model.Course;
-import com.foxminded.university.domain.model.Group;
-import com.foxminded.university.domain.model.Lecture;
-import com.foxminded.university.domain.model.Teacher;
+import com.foxminded.university.domain.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,14 +64,30 @@ class JdbcTemplateLectureDaoImplTest {
 
     @Test
     void getAll_shouldReturnAllLectures() {
-        List<Lecture> expected = fillLecturesForSaveAll();
+        List<Lecture> expected = fillLecturesForGetAll();
 
         List<Lecture> actual = lectureDao.getAll();
 
         assertEquals(expected, actual);
     }
 
-    private List<Lecture> fillLecturesForSaveAll() {
+    @Test
+    void save_shouldSaveLecture_whenSavingLectureNotExist() {
+        Lecture expected = new Lecture();
+        expected.setDateTime(LocalDateTime.of(2021, 9, 1, 16, 0, 0, 0));
+        expected.setClassroom(fillClassrooms().get(0));
+        expected.setTeacher(fillTeachers().get(1));
+        expected.setGroup(fillGroups().get(2));
+        expected.setCourse(fillCourses().get(3));
+
+        lectureDao.save(expected);
+        Optional<Lecture> actual = lectureDao.getById(expected.getId());
+
+        assertTrue(actual.isPresent());
+        assertEquals(expected, actual.get());
+    }
+
+    private List<Lecture> fillLecturesForGetAll() {
         Lecture lecture1 = new Lecture();
         lecture1.setId(1);
         lecture1.setDateTime(LocalDateTime.of(2021, 9, 1, 8, 0, 0, 0));
