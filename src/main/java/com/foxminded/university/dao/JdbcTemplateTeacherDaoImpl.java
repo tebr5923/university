@@ -2,7 +2,6 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.domain.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -25,7 +24,7 @@ public class JdbcTemplateTeacherDaoImpl implements TeacherDao {
     @Autowired
     public JdbcTemplateTeacherDaoImpl(
             JdbcTemplate jdbcTemplate,
-            @Qualifier("insertTeacher") SimpleJdbcInsert insertTeacher,
+            SimpleJdbcInsert insertTeacher,
             RowMapper<Teacher> teacherRowMapper
     ) {
         this.jdbcTemplate = jdbcTemplate;

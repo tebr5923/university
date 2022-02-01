@@ -2,7 +2,6 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.domain.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -25,7 +24,7 @@ public class JdbcTemplateGroupDaoImpl implements GroupDao {
     @Autowired
     public JdbcTemplateGroupDaoImpl(
             JdbcTemplate jdbcTemplate,
-            @Qualifier("insertGroup") SimpleJdbcInsert insertGroup,
+            SimpleJdbcInsert insertGroup,
             RowMapper<Group> groupRowMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.insertGroup = insertGroup;

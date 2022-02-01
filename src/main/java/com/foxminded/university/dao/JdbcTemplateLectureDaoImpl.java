@@ -2,7 +2,6 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.domain.model.Lecture;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -22,7 +21,7 @@ public class JdbcTemplateLectureDaoImpl implements LectureDao {
     @Autowired
     public JdbcTemplateLectureDaoImpl(
             JdbcTemplate jdbcTemplate,
-            @Qualifier("insertLecture") SimpleJdbcInsert insertLecture,
+            SimpleJdbcInsert insertLecture,
             RowMapper<Lecture> lectureRowMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.insertLecture = insertLecture;
