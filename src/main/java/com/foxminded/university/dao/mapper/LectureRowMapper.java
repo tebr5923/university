@@ -1,4 +1,4 @@
-package com.foxminded.university.mapper;
+package com.foxminded.university.dao.mapper;
 
 import com.foxminded.university.domain.model.*;
 import org.springframework.jdbc.core.RowMapper;
