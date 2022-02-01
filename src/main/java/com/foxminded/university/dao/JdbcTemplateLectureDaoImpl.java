@@ -87,7 +87,8 @@ public class JdbcTemplateLectureDaoImpl implements LectureDao {
 
     @Override
     public void delete(Lecture model) {
-
+        String sql = "DELETE FROM lectures WHERE id=?;";
+        jdbcTemplate.update(sql, model.getId());
     }
 
     @Override

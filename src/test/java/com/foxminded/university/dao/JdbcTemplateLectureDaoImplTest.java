@@ -124,7 +124,16 @@ class JdbcTemplateLectureDaoImplTest {
         assertFalse(actual.isPresent());
     }
 
+    @Test
+    void delete_shouldDeleteLecture_whenDeletingLectureIsExist() {
+        Lecture deleted = new Lecture();
+        deleted.setId(1);
 
+        lectureDao.delete(deleted);
+        Optional<Lecture> actual = lectureDao.getById(deleted.getId());
+
+        assertFalse(actual.isPresent());
+    }
 
     private List<Lecture> fillLecturesForGetAll() {
         Lecture lecture1 = new Lecture();
@@ -160,7 +169,6 @@ class JdbcTemplateLectureDaoImplTest {
         lecture4.setCourse(fillCourses().get(3));
 
         return Arrays.asList(lecture1, lecture2, lecture3, lecture4);
-
     }
 
     private List<Course> fillCourses() {
