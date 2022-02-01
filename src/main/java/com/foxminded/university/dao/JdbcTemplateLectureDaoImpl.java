@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,13 @@ public class JdbcTemplateLectureDaoImpl implements LectureDao {
 
     @Override
     public int[] saveAll(List<Lecture> modelList) {
-        return new int[0];
+        String sql = "INSERT INTO lectures (id, date_time, classroom_id, teacher_id, group_id, course_id) values(DEFAULT,?,?,?,?,?);";
+        List<Object[]> batch = new ArrayList<>();
+        for (Lecture lecture : modelList) {
+            Object[] values = new Object[]{
+                    lecture.getDateTime(), lecture.getClassroom().getId(), lecture.getTeacher().getId(), lecture.getGroup().getId(), lecture.getCourse().getId()};
+            batch.add(values);
+        }
+        return jdbcTemplate.batchUpdate(sql, batch);
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -133,6 +134,46 @@ class JdbcTemplateLectureDaoImplTest {
         Optional<Lecture> actual = lectureDao.getById(deleted.getId());
 
         assertFalse(actual.isPresent());
+    }
+
+    @Test
+    void saveAll_shouldSaveAllLectures() {
+        List<Lecture> savingList = fillLecturesForSaveAll();
+        List<Lecture> expected = new ArrayList<>(fillLecturesForGetAll());
+        expected.addAll(savingList);
+
+        lectureDao.saveAll(savingList);
+        List<Lecture> actual = lectureDao.getAll();
+
+        assertEquals(expected, actual);
+    }
+
+    private List<Lecture> fillLecturesForSaveAll() {
+        Lecture lecture1 = new Lecture();
+        lecture1.setId(5);
+        lecture1.setDateTime(LocalDateTime.of(2021, 9, 1, 8, 0, 0, 0));
+        lecture1.setClassroom(fillClassrooms().get(0));
+        lecture1.setTeacher(fillTeachers().get(1));
+        lecture1.setGroup(fillGroups().get(2));
+        lecture1.setCourse(fillCourses().get(3));
+
+        Lecture lecture2 = new Lecture();
+        lecture2.setId(6);
+        lecture2.setDateTime(LocalDateTime.of(2021, 9, 1, 10, 0, 0, 0));
+        lecture2.setClassroom(fillClassrooms().get(1));
+        lecture2.setTeacher(fillTeachers().get(2));
+        lecture2.setGroup(fillGroups().get(3));
+        lecture2.setCourse(fillCourses().get(0));
+
+        Lecture lecture3 = new Lecture();
+        lecture3.setId(7);
+        lecture3.setDateTime(LocalDateTime.of(2021, 9, 1, 12, 0, 0, 0));
+        lecture3.setClassroom(fillClassrooms().get(2));
+        lecture3.setTeacher(fillTeachers().get(3));
+        lecture3.setGroup(fillGroups().get(0));
+        lecture3.setCourse(fillCourses().get(1));
+
+        return Arrays.asList(lecture1, lecture2, lecture3);
     }
 
     private List<Lecture> fillLecturesForGetAll() {
