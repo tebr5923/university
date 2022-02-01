@@ -80,7 +80,9 @@ public class JdbcTemplateLectureDaoImpl implements LectureDao {
 
     @Override
     public void update(Lecture model) {
-
+        String sql = "UPDATE lectures set date_time=?, classroom_id=?, teacher_id=?, group_id=?, course_id=?  WHERE id=?;";
+        jdbcTemplate.update(sql, model.getDateTime(), model.getClassroom().getId(), model.getTeacher().getId()
+                , model.getGroup().getId(), model.getCourse().getId(), model.getId());
     }
 
     @Override

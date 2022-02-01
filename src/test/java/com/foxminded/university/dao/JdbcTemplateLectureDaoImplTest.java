@@ -1,7 +1,11 @@
 package com.foxminded.university.dao;
 
 import com.foxminded.university.config.UniversityTestConfig;
-import com.foxminded.university.domain.model.*;
+import com.foxminded.university.domain.model.Classroom;
+import com.foxminded.university.domain.model.Course;
+import com.foxminded.university.domain.model.Group;
+import com.foxminded.university.domain.model.Lecture;
+import com.foxminded.university.domain.model.Teacher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,6 +90,41 @@ class JdbcTemplateLectureDaoImplTest {
         assertTrue(actual.isPresent());
         assertEquals(expected, actual.get());
     }
+
+    @Test
+    void update_shouldUpdateLecture_whenUpdatingLectureIsExist() {
+        Lecture expected = new Lecture();
+        expected.setId(1);
+        expected.setDateTime(LocalDateTime.of(2021, 9, 1, 16, 0, 0, 0));
+        expected.setClassroom(fillClassrooms().get(0));
+        expected.setTeacher(fillTeachers().get(1));
+        expected.setGroup(fillGroups().get(2));
+        expected.setCourse(fillCourses().get(3));
+
+        lectureDao.update(expected);
+        Optional<Lecture> actual = lectureDao.getById(expected.getId());
+
+        assertTrue(actual.isPresent());
+        assertEquals(expected, actual.get());
+    }
+
+    @Test
+    void update_shouldNotReturnLecture_whenUpdatingLectureNotExist() {
+        Lecture expected = new Lecture();
+        expected.setId(5);
+        expected.setDateTime(LocalDateTime.of(2021, 9, 1, 16, 0, 0, 0));
+        expected.setClassroom(fillClassrooms().get(0));
+        expected.setTeacher(fillTeachers().get(1));
+        expected.setGroup(fillGroups().get(2));
+        expected.setCourse(fillCourses().get(3));
+
+        lectureDao.update(expected);
+        Optional<Lecture> actual = lectureDao.getById(expected.getId());
+
+        assertFalse(actual.isPresent());
+    }
+
+
 
     private List<Lecture> fillLecturesForGetAll() {
         Lecture lecture1 = new Lecture();
