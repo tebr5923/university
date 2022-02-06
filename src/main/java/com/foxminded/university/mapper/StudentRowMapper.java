@@ -1,4 +1,4 @@
-package com.foxminded.university.dao.mapper;
+package com.foxminded.university.mapper;
 
 import com.foxminded.university.domain.model.Group;
 import com.foxminded.university.domain.model.Student;
