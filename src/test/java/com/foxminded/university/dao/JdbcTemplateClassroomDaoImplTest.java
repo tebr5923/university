@@ -1,6 +1,6 @@
 package com.foxminded.university.dao;
 
-import com.foxminded.university.config.UniversityTestConfig;
+import com.foxminded.university.config.UniversityDaoTestConfig;
 import com.foxminded.university.domain.model.Classroom;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringJUnitConfig(UniversityTestConfig.class)
+@SpringJUnitConfig(UniversityDaoTestConfig.class)
 class JdbcTemplateClassroomDaoImplTest {
     public static final String CLASSROOM_SCRIPT = "classroom.sql";
 
