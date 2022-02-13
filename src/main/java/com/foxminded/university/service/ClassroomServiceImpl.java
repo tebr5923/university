@@ -3,12 +3,12 @@ package com.foxminded.university.service;
 import com.foxminded.university.dao.ClassroomDao;
 import com.foxminded.university.domain.model.Classroom;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class ClassroomServiceImpl implements ClassroomService {
     private final ClassroomDao classroomDao;
 
