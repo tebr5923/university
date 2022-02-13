@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Import;
         UniversityDataSourceConfig.class,
         UniversityDaoConfig.class,
         UniversityMapperConfig.class,
-        UniversityInsertConfig.class
+        UniversityInsertConfig.class,
+        UniversityServiceConfig.class
 })
 public class UniversityConfig {
 
