@@ -59,7 +59,7 @@ CREATE SEQUENCE classrooms_id_seq START 1;
 CREATE TABLE classrooms
 (
     id     int DEFAULT NEXTVAL('classrooms_id_seq') NOT NULL PRIMARY KEY,
-    number int                                      NOT NULL
+    number int                                      NOT NULL UNIQUE
 );
 
 

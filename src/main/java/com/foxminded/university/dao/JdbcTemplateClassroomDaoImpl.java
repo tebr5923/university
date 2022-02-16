@@ -2,6 +2,7 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.domain.model.Classroom;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -49,11 +50,16 @@ public class JdbcTemplateClassroomDaoImpl implements ClassroomDao {
     }
 
     @Override
-    public void save(Classroom model) {
+    public void save(Classroom model) throws DaoException {
         Map<String, Object> parameters = new HashMap<>(1);
         parameters.put("number", model.getNumber());
-        Number newId = insertClassroom.executeAndReturnKey(parameters);
-        model.setId(newId.intValue());
+        try {
+            Number newId = insertClassroom.executeAndReturnKey(parameters);
+            model.setId(newId.intValue());
+        } catch (DuplicateKeyException e) {
+            System.err.println("number of classroom already exist");
+            throw new DaoException("number of classroom already exist", e);
+        }
     }
 
     @Override

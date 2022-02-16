@@ -12,7 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringJUnitConfig(UniversityDaoTestConfig.class)
 class JdbcTemplateClassroomDaoImplTest {
@@ -76,7 +79,7 @@ class JdbcTemplateClassroomDaoImplTest {
     }
 
     @Test
-    void save_shouldSaveClassroom_whenSavingClassroomNotExist() {
+    void save_shouldSaveClassroom_whenSavingClassroomNotExist() throws DaoException {
         Classroom expected = new Classroom();
         expected.setNumber(555);
 
@@ -85,6 +88,13 @@ class JdbcTemplateClassroomDaoImplTest {
 
         assertTrue(actual.isPresent());
         assertEquals(expected, actual.get());
+    }
+
+    @Test
+    void save_shouldThrowDaoException_whenSavingClassroomExist() {
+        Classroom classroom1 = new Classroom();
+        classroom1.setNumber(11);
+        assertThrows(DaoException.class, () -> classroomDao.save(classroom1));
     }
 
     @Test

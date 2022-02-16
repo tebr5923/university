@@ -1,6 +1,7 @@
 package com.foxminded.university.service;
 
 import com.foxminded.university.dao.ClassroomDao;
+import com.foxminded.university.dao.DaoException;
 import com.foxminded.university.domain.model.Classroom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,11 @@ public class ClassroomServiceImpl implements ClassroomService {
 
     @Override
     public void save(Classroom model) {
-        classroomDao.save(model);
+        try {
+            classroomDao.save(model);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

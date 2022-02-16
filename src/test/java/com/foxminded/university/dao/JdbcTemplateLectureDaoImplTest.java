@@ -77,7 +77,7 @@ class JdbcTemplateLectureDaoImplTest {
     }
 
     @Test
-    void save_shouldSaveLecture_whenSavingLectureNotExist() {
+    void save_shouldSaveLecture_whenSavingLectureNotExist() throws DaoException {
         Lecture expected = new Lecture();
         expected.setDateTime(LocalDateTime.of(2021, 9, 1, 16, 0, 0, 0));
         expected.setClassroom(fillClassrooms().get(0));

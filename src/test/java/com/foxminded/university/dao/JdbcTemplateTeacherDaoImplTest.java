@@ -83,7 +83,7 @@ class JdbcTemplateTeacherDaoImplTest {
     }
 
     @Test
-    void save_shouldSaveTeacher_whenSavingTeacherNotExist() {
+    void save_shouldSaveTeacher_whenSavingTeacherNotExist() throws DaoException {
         Teacher expected = new Teacher();
         expected.setFirstName("NewFirstName");
         expected.setLastName("NewFirstName");

@@ -78,7 +78,7 @@ class JdbcTemplateGroupDaoImplTest {
     }
 
     @Test
-    void save_shouldSaveGroup_whenSavingGroupNotExist() {
+    void save_shouldSaveGroup_whenSavingGroupNotExist() throws DaoException {
         Group expected = new Group();
         expected.setName("NN-11");
 

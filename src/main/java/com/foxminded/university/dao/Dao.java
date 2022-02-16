@@ -8,7 +8,7 @@ public interface Dao<T, K> {
 
     List<T> getAll();
 
-    void save(T model);
+    void save(T model) throws DaoException;
 
     void update(T model);
 

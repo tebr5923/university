@@ -103,7 +103,7 @@ class JdbcTemplateStudentDaoImplTest {
     }
 
     @Test
-    void save_shouldSaveStudent_whenSavingStudentNotExist() {
+    void save_shouldSaveStudent_whenSavingStudentNotExist() throws DaoException {
         Group group1 = new Group();
         group1.setId(1);
         group1.setName("GR-11");

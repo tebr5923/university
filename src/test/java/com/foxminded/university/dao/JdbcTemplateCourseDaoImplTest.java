@@ -77,7 +77,7 @@ class JdbcTemplateCourseDaoImplTest {
     }
 
     @Test
-    void save_shouldSaveCourse_whenSavingCourseNotExist() {
+    void save_shouldSaveCourse_whenSavingCourseNotExist() throws DaoException {
         Course expected = new Course();
         expected.setName("new course");
 
