@@ -50,7 +50,7 @@ CREATE SEQUENCE courses_id_seq START 1;
 CREATE TABLE courses
 (
     id   int DEFAULT NEXTVAL('courses_id_seq') NOT NULL PRIMARY KEY,
-    name varchar(50)                           NOT NULL
+    name varchar(50)                           NOT NULL UNIQUE
 );
 
 

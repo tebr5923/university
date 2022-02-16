@@ -12,9 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringJUnitConfig(UniversityDaoTestConfig.class)
 class JdbcTemplateCourseDaoImplTest {
@@ -89,6 +87,13 @@ class JdbcTemplateCourseDaoImplTest {
     }
 
     @Test
+    void save_shouldThrowDaoException_whenSavingCourseExist() {
+        Course math = new Course();
+        math.setName("math");
+        assertThrows(DaoException.class, () -> courseDao.save(math));
+    }
+
+    @Test
     void update_shouldUpdateCourse_whenUpdatingCourseIsExist() {
         Course expected = new Course();
         expected.setId(1);
@@ -156,6 +161,15 @@ class JdbcTemplateCourseDaoImplTest {
         List<Course> actual = courseDao.getAll();
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void saveAll_shouldThrowDaoException_whenSavingCourseExist() {
+        Course math = new Course();
+        math.setName("math");
+        Course course = new Course();
+        course.setName("course");
+        assertThrows(DaoException.class, () -> courseDao.saveAll(Arrays.asList(course, math)));
     }
 
 }

@@ -2,6 +2,7 @@ package com.foxminded.university.dao;
 
 import com.foxminded.university.domain.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -49,11 +50,16 @@ public class JdbcTemplateCourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public void save(Course model) {
+    public void save(Course model) throws DaoException {
         Map<String, Object> parameters = new HashMap<>(1);
         parameters.put("name", model.getName());
-        Number newId = insertCourse.executeAndReturnKey(parameters);
-        model.setId(newId.intValue());
+        try {
+            Number newId = insertCourse.executeAndReturnKey(parameters);
+            model.setId(newId.intValue());
+        } catch (DuplicateKeyException e) {
+            System.err.println("Save ERROR: name of course already exist");
+            throw new DaoException("Save ERROR: name of course already exist", e);
+        }
     }
 
     @Override
@@ -69,7 +75,7 @@ public class JdbcTemplateCourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public int[] saveAll(List<Course> modelList) {
+    public int[] saveAll(List<Course> modelList) throws DaoException {
         String sql = "INSERT INTO courses (id, name) values(DEFAULT,?);";
         List<Object[]> batch = new ArrayList<>();
         for (Course course : modelList) {
@@ -77,6 +83,13 @@ public class JdbcTemplateCourseDaoImpl implements CourseDao {
                     course.getName()};
             batch.add(values);
         }
-        return jdbcTemplate.batchUpdate(sql, batch);
+        int[] updateResult;
+        try {
+            updateResult = jdbcTemplate.batchUpdate(sql, batch);
+        } catch (DuplicateKeyException e) {
+            System.err.println("SaveAll ERROR: name of course already exist");
+            throw new DaoException("SaveAll ERROR: name of course already exist", e);
+        }
+        return updateResult;
     }
 }
