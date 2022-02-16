@@ -49,7 +49,13 @@ public class ClassroomServiceImpl implements ClassroomService {
 
     @Override
     public int[] saveAll(List<Classroom> modelList) {
-        return classroomDao.saveAll(modelList);
+        int[] updateResult = {};
+        try {
+            updateResult = classroomDao.saveAll(modelList);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+        return updateResult;
     }
 
 }

@@ -125,7 +125,7 @@ class JdbcTemplateCourseDaoImplTest {
     }
 
     @Test
-    void saveAll_shouldSaveAllCourse() {
+    void saveAll_shouldSaveAllCourse() throws DaoException {
         Course history = new Course();
         history.setId(1);
         history.setName("history");

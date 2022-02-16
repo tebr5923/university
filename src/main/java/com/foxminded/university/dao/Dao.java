@@ -14,5 +14,5 @@ public interface Dao<T, K> {
 
     void delete(T model);
 
-    int[] saveAll(List<T> modelList);
+    int[] saveAll(List<T> modelList) throws DaoException;
 }

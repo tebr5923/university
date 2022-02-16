@@ -57,8 +57,8 @@ public class JdbcTemplateClassroomDaoImpl implements ClassroomDao {
             Number newId = insertClassroom.executeAndReturnKey(parameters);
             model.setId(newId.intValue());
         } catch (DuplicateKeyException e) {
-            System.err.println("number of classroom already exist");
-            throw new DaoException("number of classroom already exist", e);
+            System.err.println("Save ERROR: number of classroom already exist");
+            throw new DaoException("Save ERROR: number of classroom already exist", e);
         }
     }
 
@@ -75,7 +75,7 @@ public class JdbcTemplateClassroomDaoImpl implements ClassroomDao {
     }
 
     @Override
-    public int[] saveAll(List<Classroom> modelList) {
+    public int[] saveAll(List<Classroom> modelList) throws DaoException {
         String sql = "INSERT INTO classrooms (id, number) values(DEFAULT,?);";
         List<Object[]> batch = new ArrayList<>();
         for (Classroom classroom : modelList) {
@@ -83,6 +83,14 @@ public class JdbcTemplateClassroomDaoImpl implements ClassroomDao {
                     classroom.getNumber()};
             batch.add(values);
         }
-        return jdbcTemplate.batchUpdate(sql, batch);
+        int[] updateResult;
+        try {
+            updateResult = jdbcTemplate.batchUpdate(sql, batch);
+        } catch (DuplicateKeyException e) {
+            System.err.println("SaveAll ERROR: number of classroom already exist");
+            throw new DaoException("SaveAll ERROR: number of classroom already exist", e);
+        }
+
+        return updateResult;
     }
 }

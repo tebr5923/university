@@ -126,7 +126,7 @@ class JdbcTemplateGroupDaoImplTest {
     }
 
     @Test
-    void saveAll_shouldSaveAllGroups() {
+    void saveAll_shouldSaveAllGroups() throws DaoException {
         Group group1 = new Group();
         group1.setId(1);
         group1.setName("GR-11");

@@ -137,7 +137,7 @@ class JdbcTemplateLectureDaoImplTest {
     }
 
     @Test
-    void saveAll_shouldSaveAllLectures() {
+    void saveAll_shouldSaveAllLectures() throws DaoException {
         List<Lecture> savingList = fillLecturesForSaveAll();
         List<Lecture> expected = new ArrayList<>(fillLecturesForGetAll());
         expected.addAll(savingList);

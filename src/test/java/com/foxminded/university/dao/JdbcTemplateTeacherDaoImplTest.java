@@ -134,7 +134,7 @@ class JdbcTemplateTeacherDaoImplTest {
     }
 
     @Test
-    void saveAll_shouldSaveAllTeachers() {
+    void saveAll_shouldSaveAllTeachers() throws DaoException {
         Teacher ivanov = new Teacher();
         ivanov.setId(1);
         ivanov.setFirstName("Petr");

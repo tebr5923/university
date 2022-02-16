@@ -134,7 +134,7 @@ class JdbcTemplateClassroomDaoImplTest {
     }
 
     @Test
-    void saveAll_shouldSaveAllClassrooms() {
+    void saveAll_shouldSaveAllClassrooms() throws DaoException {
         Classroom classroom1 = new Classroom();
         classroom1.setId(1);
         classroom1.setNumber(11);
@@ -164,6 +164,15 @@ class JdbcTemplateClassroomDaoImplTest {
         List<Classroom> actual = classroomDao.getAll();
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void saveAll_shouldThrowDaoException_whenSavingClassroomExist() {
+        Classroom classroom1 = new Classroom();
+        classroom1.setNumber(11);
+        Classroom classroom2 = new Classroom();
+        classroom2.setNumber(22);
+        assertThrows(DaoException.class, () -> classroomDao.saveAll(Arrays.asList(classroom1, classroom2)));
     }
 
 }
